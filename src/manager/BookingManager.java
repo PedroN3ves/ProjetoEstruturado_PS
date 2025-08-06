@@ -3,6 +3,7 @@ package manager;
 import model.Room;
 import model.Customer;
 import model.Booking;
+import util.PaymentProcessor;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -45,6 +46,14 @@ public class BookingManager
             System.out.println("Room not available.");
             return;
         }
+
+        double amount = room.getPrice();
+        boolean paid = PaymentProcessor.processPayment(customer.getName(), amount);
+        if (!paid) {
+            System.out.println("Payment failed. Booking not completed.");
+            return;
+        }
+
 
         room.setAvailable(false);
         bookings.add(new Booking(email, hotelName, roomNumber));

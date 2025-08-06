@@ -7,6 +7,8 @@ import manager.BookingManager;
 import manager.ReviewManager;
 import manager.AnalyticsManager;
 
+import util.CustomerSupport;
+
 import java.util.Scanner;
 
 public class Main
@@ -25,7 +27,7 @@ public class Main
         while (true)
         {
             System.out.println("\n-------- HOTEL BOOKING SYSTEM --------");
-            System.out.println("1. Add Hotel\n2. List Hotels\n3. Add Room\n4. List Rooms\n5. Create Customer Profile\n6. Book Room\n7. Cancel Booking\n8. Add Review\n9. Show Reviews\n10. Analytics Report\n11. Show Loyalty Points\n12. Exit");
+            System.out.println("1. Add Hotel\n2. List Hotels\n3. Add Room\n4. List Rooms\n5. Create Customer Profile\n6. Book Room\n7. Cancel Booking\n8. Add Review\n9. Show Reviews\n10. Analytics Report\n11. Show Loyalty Points\n12. Customer Support\n13. Exit");
             System.out.println("--------------------------------------");
             System.out.print("Choose an option: ");
             String choice = scanner.nextLine();
@@ -68,6 +70,9 @@ public class Main
                     customerManager.showLoyaltyPoints();
                     break;
                 case "12":
+                    CustomerSupport.openSupportMenu();
+                    break;
+                case "13":
                 {
                     System.out.println("Exiting...");
                     scanner.close();
