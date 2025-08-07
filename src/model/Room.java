@@ -1,5 +1,9 @@
 package model;
 
+import util.LanguageManager;
+
+import java.text.MessageFormat;
+
 public class Room
 {
     private String hotelName;
@@ -48,9 +52,18 @@ public class Room
     }
 
     @Override
-    public String
-    toString()
+    public String toString()
     {
-        return "Room " + number + " - " + type + " - $" + price + " - " + (available ? "Available" : "Booked");
+        String status = isAvailable() ?
+                LanguageManager.getMessage("room.status.available") :
+                LanguageManager.getMessage("room.status.occupied");
+
+        return MessageFormat.format(
+                LanguageManager.getMessage("room.display_format"),
+                number,
+                type,
+                price,
+                status
+        );
     }
 }

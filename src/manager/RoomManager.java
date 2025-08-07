@@ -3,6 +3,7 @@ package manager;
 import model.Hotel;
 import model.Room;
 
+import util.LanguageManager;
 import util.Values;
 
 import java.util.ArrayList;
@@ -23,23 +24,24 @@ public class RoomManager
 
     public void addRoom()
     {
-        System.out.println("Hotel name to add room:");
+        System.out.println(LanguageManager.getMessage("room.hotel_name"));
         String hotelName = scanner.nextLine();
         Hotel hotel = hotelManager.getHotelByName(hotelName);
         if (hotel == null)
         {
-            System.out.println("Hotel not found.");
+            System.out.println(LanguageManager.getMessage("room.hotel_not_found"));
             return;
         }
 
-        System.out.println("Room Number:");
+        System.out.println(LanguageManager.getMessage("room.room_number"));
         String number = scanner.nextLine();
-        System.out.println("Type (single/couple/premium):");
+        System.out.println(LanguageManager.getMessage("room.room_type"));
         String type = scanner.nextLine();
 
-        if (!Values.PRICES.containsKey(type))
+        Double price = Values.getPrice(type);
+        if (price == null)
         {
-            System.out.println("Invalid room type.");
+            System.out.println(LanguageManager.getMessage("room.invalid"));
             return;
         }
 
@@ -47,19 +49,19 @@ public class RoomManager
         {
             if (r.getHotelName().equalsIgnoreCase(hotelName) && r.getNumber().equals(number))
             {
-                System.out.println("Room already exists in this hotel.");
+                System.out.println(LanguageManager.getMessage("room.exists"));
                 return;
             }
         }
 
-        Room room = new Room(hotelName, number, type, Values.PRICES.get(type));
+        Room room = new Room(hotelName, number, type, price);
         rooms.add(room);
-        System.out.println("Room added successfully.");
+        System.out.println(LanguageManager.getMessage("room.successful"));
     }
 
     public void listRooms()
     {
-        System.out.println("Hotel name to list rooms:");
+        System.out.println(LanguageManager.getMessage("room.list_rooms"));
         String hotelName = scanner.nextLine();
         boolean found = false;
         for (Room r : rooms)
@@ -72,7 +74,7 @@ public class RoomManager
         }
         if (!found)
         {
-            System.out.println("No rooms found for this hotel.");
+            System.out.println(LanguageManager.getMessage("room.no_rooms"));
         }
     }
 

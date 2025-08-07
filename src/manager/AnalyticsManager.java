@@ -2,6 +2,8 @@ package manager;
 
 import model.Room;
 
+import util.LanguageManager;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,13 +20,13 @@ public class AnalyticsManager
 
     public void showHotelAnalytics()
     {
-        System.out.println("Hotel name to analyze:");
+        System.out.println(LanguageManager.getMessage("analytics.prompt_hotel_name"));
         String hotelName = scanner.nextLine();
         List<Room> hotelRooms = roomManager.getRoomsByHotel(hotelName);
 
         if (hotelRooms.isEmpty())
         {
-            System.out.println("No rooms registered for this hotel.");
+            System.out.println(LanguageManager.getMessage("analytics.no_rooms"));
             return;
         }
 
@@ -42,7 +44,7 @@ public class AnalyticsManager
         }
 
         double occupancyRate = (occupied / (double)total) * 100;
-        System.out.printf("Total rooms: %d\nOccupied rooms: %d\nOccupancy rate: %.2f%%\nEstimated revenue: $%.2f\n",
+        System.out.printf(LanguageManager.getMessage("analytics.summary"),
                 total, occupied, occupancyRate, revenue);
     }
 }

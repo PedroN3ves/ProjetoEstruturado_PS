@@ -8,6 +8,7 @@ import manager.ReviewManager;
 import manager.AnalyticsManager;
 
 import util.CustomerSupport;
+import util.LanguageManager;
 
 import java.util.Scanner;
 
@@ -23,13 +24,26 @@ public class Main
         BookingManager bookingManager = new BookingManager(scanner, customerManager, roomManager);
         ReviewManager reviewManager = new ReviewManager(scanner);
         AnalyticsManager analyticsManager = new AnalyticsManager(roomManager, scanner);
+        LanguageManager.initLanguage();
 
         while (true)
         {
             System.out.println("\n-------- HOTEL BOOKING SYSTEM --------");
-            System.out.println("1. Add Hotel\n2. List Hotels\n3. Add Room\n4. List Rooms\n5. Create Customer Profile\n6. Book Room\n7. Cancel Booking\n8. Add Review\n9. Show Reviews\n10. Analytics Report\n11. Show Loyalty Points\n12. Customer Support\n13. Exit");
+            System.out.println("1. " + LanguageManager.getMessage("menu.option1"));
+            System.out.println("2. " + LanguageManager.getMessage("menu.option2"));
+            System.out.println("3. " + LanguageManager.getMessage("menu.option3"));
+            System.out.println("4. " + LanguageManager.getMessage("menu.option4"));
+            System.out.println("5. " + LanguageManager.getMessage("menu.option5"));
+            System.out.println("6. " + LanguageManager.getMessage("menu.option6"));
+            System.out.println("7. " + LanguageManager.getMessage("menu.option7"));
+            System.out.println("8. " + LanguageManager.getMessage("menu.option8"));
+            System.out.println("9. " + LanguageManager.getMessage("menu.option9"));
+            System.out.println("10. " + LanguageManager.getMessage("menu.option10"));
+            System.out.println("11. " + LanguageManager.getMessage("menu.option11"));
+            System.out.println("12. " + LanguageManager.getMessage("menu.option12"));
+            System.out.println("13. " + LanguageManager.getMessage("menu.option13"));
             System.out.println("--------------------------------------");
-            System.out.print("Choose an option: ");
+            System.out.print(LanguageManager.getMessage("choose_an_option"));
             String choice = scanner.nextLine();
 
             switch (choice)
@@ -74,12 +88,12 @@ public class Main
                     break;
                 case "13":
                 {
-                    System.out.println("Exiting...");
+                    System.out.println(LanguageManager.getMessage("exiting.msg"));
                     scanner.close();
                     return;
                 }
                 default:
-                    System.out.println("Invalid option.");
+                    System.out.println(LanguageManager.getMessage("default.msg"));
             }
         }
     }

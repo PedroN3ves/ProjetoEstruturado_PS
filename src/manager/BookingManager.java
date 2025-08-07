@@ -4,6 +4,8 @@ import model.Room;
 import model.Customer;
 import model.Booking;
 import util.PaymentProcessor;
+import util.LanguageManager;
+import java.text.MessageFormat;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -26,46 +28,46 @@ public class BookingManager
 
     public void bookRoom()
     {
-        System.out.println("Customer email:");
+        System.out.println(LanguageManager.getMessage("booking.customer_email"));
         String email = scanner.nextLine();
         Customer customer = customerManager.getCustomerByEmail(email);
         if (customer == null)
         {
-            System.out.println("Customer not found.");
+            System.out.println(LanguageManager.getMessage("booking.customer_not_found"));
             return;
         }
 
-        System.out.println("Hotel name:");
+        System.out.println(LanguageManager.getMessage("booking.hotel_name"));
         String hotelName = scanner.nextLine();
-        System.out.println("Room number:");
+        System.out.println(LanguageManager.getMessage("booking.room_number"));
         String roomNumber = scanner.nextLine();
 
         Room room = roomManager.getAvailableRoom(hotelName, roomNumber);
         if (room == null)
         {
-            System.out.println("Room not available.");
+            System.out.println(LanguageManager.getMessage("booking.room_not_available"));
             return;
         }
 
         double amount = room.getPrice();
         boolean paid = PaymentProcessor.processPayment(customer.getName(), amount);
-        if (!paid) {
-            System.out.println("Payment failed. Booking not completed.");
+        if (!paid)
+        {
+            System.out.println(LanguageManager.getMessage("booking.payment_failed"));
             return;
         }
-
 
         room.setAvailable(false);
         bookings.add(new Booking(email, hotelName, roomNumber));
         customerManager.addLoyaltyPoints(email, 10);
-        System.out.println("Room " + roomNumber + " in " + hotelName + " booked successfully. Loyalty points: " + customerManager.getLoyaltyPoints(email));
+        System.out.println(MessageFormat.format(LanguageManager.getMessage("booking.success"), roomNumber, hotelName, customerManager.getLoyaltyPoints(email)));
     }
 
     public void cancelBooking()
     {
-        System.out.println("Hotel name:");
+        System.out.println(LanguageManager.getMessage("booking.cancel_hotel"));
         String hotelName = scanner.nextLine();
-        System.out.println("Room number to cancel:");
+        System.out.println(LanguageManager.getMessage("booking.cancel_room"));
         String roomNumber = scanner.nextLine();
 
         Iterator<Booking> iterator = bookings.iterator();
@@ -80,10 +82,10 @@ public class BookingManager
                     room.setAvailable(true);
                 }
                 iterator.remove();
-                System.out.println("Booking cancelled.");
+                System.out.println(LanguageManager.getMessage("booking.cancelled"));
                 return;
             }
         }
-        System.out.println("Booking not found.");
+        System.out.println(LanguageManager.getMessage("booking.not_found"));
     }
 }

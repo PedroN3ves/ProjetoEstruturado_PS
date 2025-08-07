@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class LanguageManager
 {
     private static ResourceBundle messages;
+    private static Locale currentLocale;
 
     public static void initLanguage()
     {
@@ -16,22 +17,27 @@ public class LanguageManager
         System.out.print("Option: ");
         String option = scanner.nextLine();
 
-        switch (option)
-        {
+        Locale locale;
+
+        switch (option) {
             case "1":
-                messages = ResourceBundle.getBundle("messages", new Locale("en"));
+                locale = new Locale("en");
                 break;
             case "2":
-                messages = ResourceBundle.getBundle("messages", new Locale("pt"));
+                locale = new Locale("pt");
                 break;
             case "3":
-                messages = ResourceBundle.getBundle("messages", new Locale("es"));
+                locale = new Locale("es");
                 break;
             default:
                 System.out.println("Invalid option. Defaulting to English.");
-                messages = ResourceBundle.getBundle("messages", new Locale("en"));
+                locale = new Locale("en");
                 break;
         }
+
+        messages = ResourceBundle.getBundle("messages", locale);
+        currentLocale = locale;
+        Values.init(locale);
     }
 
     public static String getMessage(String key)

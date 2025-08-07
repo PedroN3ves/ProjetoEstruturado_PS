@@ -1,7 +1,9 @@
 package manager;
 
 import model.Customer;
+import util.LanguageManager;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,23 +23,23 @@ public class CustomerManager
 
     public void createCustomer()
     {
-        System.out.println("Customer name:");
+        System.out.println(LanguageManager.getMessage("customer.name"));
         String name = scanner.nextLine();
-        System.out.println("Email:");
+        System.out.println(LanguageManager.getMessage("customer.email"));
         String email = scanner.nextLine();
 
         for (Customer c : customers)
         {
             if (c.getEmail().equalsIgnoreCase(email))
             {
-                System.out.println("Customer already exists.");
+                System.out.println(LanguageManager.getMessage("customer.exists"));
                 return;
             }
         }
 
         customers.add(new Customer(name, email));
         loyaltyPoints.put(email, 0);
-        System.out.println("Customer profile created.");
+        System.out.println(LanguageManager.getMessage("customer.created"));
     }
 
     public Customer getCustomerByEmail(String email)
@@ -64,15 +66,15 @@ public class CustomerManager
 
     public void showLoyaltyPoints()
     {
-        System.out.println("Customer email:");
+        System.out.println(LanguageManager.getMessage("customer.loyalty_points.show"));
         String email = scanner.nextLine();
         if (loyaltyPoints.containsKey(email))
         {
-            System.out.println(email + " has " + loyaltyPoints.get(email) + " loyalty points.");
+            System.out.println(MessageFormat.format(LanguageManager.getMessage("customer.loyalty_points.result"), email, loyaltyPoints.get(email)));
         }
         else
         {
-            System.out.println("Customer not found or doesn't has any loyalty points yet");
+            System.out.println(LanguageManager.getMessage("customer.not_found"));
         }
     }
 }

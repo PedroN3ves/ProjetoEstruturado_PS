@@ -1,41 +1,43 @@
 package util;
 
 import java.util.Scanner;
+import java.text.MessageFormat;
 
-public class CustomerSupport
-{
+public class CustomerSupport {
     private static Scanner scanner = new Scanner(System.in);
 
-    public static void openSupportMenu()
-    {
-        System.out.println("\n-------- Customer Support --------");
-        System.out.println("Welcome to Hotel Booking Support!");
-        System.out.println("How can we help you?");
-        System.out.println("1. I have a problem with my booking\n2. I want to cancel my booking\n3. I didn’t receive a confirmation\n4. Talk to a support agent\n5. Exit support");
-        System.out.print("Enter your choice: ");
+    public static void openSupportMenu() {
+        System.out.println("\n" + LanguageManager.getMessage("support.menu_title"));
+        System.out.println(LanguageManager.getMessage("support.welcome"));
+        System.out.println(LanguageManager.getMessage("support.prompt"));
+        System.out.println(LanguageManager.getMessage("support.option1"));
+        System.out.println(LanguageManager.getMessage("support.option2"));
+        System.out.println(LanguageManager.getMessage("support.option3"));
+        System.out.println(LanguageManager.getMessage("support.option4"));
+        System.out.println(LanguageManager.getMessage("support.option5"));
+        System.out.print(LanguageManager.getMessage("support.choice") + " ");
+
         int choice = scanner.nextInt();
         scanner.nextLine();
 
-        switch (choice)
-        {
+        switch (choice) {
             case 1:
-                System.out.println("Please verify your booking details in 'Show Bookings'. If the issue persists, contact support.");
+                System.out.println(LanguageManager.getMessage("support.response1"));
                 break;
             case 2:
-                System.out.println("You can cancel your booking from the main menu option 'Cancel Booking'.");
+                System.out.println(LanguageManager.getMessage("support.response2"));
                 break;
             case 3:
-                System.out.println("Check your email's spam folder. If you still didn’t receive it, contact support.");
+                System.out.println(LanguageManager.getMessage("support.response3"));
                 break;
             case 4:
-                System.out.println("Connecting to a support agent...");
-                System.out.println("All agents are currently busy. Please try again later.");
+                System.out.println(LanguageManager.getMessage("support.response4"));
                 break;
             case 5:
-                System.out.println("Exiting support...");
+                System.out.println(LanguageManager.getMessage("support.response5"));
                 return;
             default:
-                System.out.println("Invalid option.");
+                System.out.println(LanguageManager.getMessage("support.invalid"));
         }
     }
 }

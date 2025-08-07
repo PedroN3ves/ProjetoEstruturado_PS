@@ -1,6 +1,7 @@
 package manager;
 
 import model.Review;
+import util.LanguageManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,22 +19,22 @@ public class ReviewManager
 
     public void addReview()
     {
-        System.out.println("Customer email:");
+        System.out.println(LanguageManager.getMessage("review.customer_email"));
         String email = scanner.nextLine();
-        System.out.println("Hotel name:");
+        System.out.println(LanguageManager.getMessage("review.hotel_name"));
         String hotelName = scanner.nextLine();
-        System.out.println("Rating (1-5):");
+        System.out.println(LanguageManager.getMessage("review.rating"));
         int rating = Integer.parseInt(scanner.nextLine());
-        System.out.println("Comment:");
+        System.out.println(LanguageManager.getMessage("review.comment"));
         String comment = scanner.nextLine();
 
         reviews.add(new Review(email, hotelName, rating, comment));
-        System.out.println("Review added.");
+        System.out.println(LanguageManager.getMessage("review.added"));
     }
 
     public void showReviews()
     {
-        System.out.println("Hotel name to view reviews:");
+        System.out.println(LanguageManager.getMessage("review.show_reviews"));
         String hotelName = scanner.nextLine();
         boolean found = false;
         for (Review r : reviews)
@@ -46,7 +47,7 @@ public class ReviewManager
         }
         if (!found)
         {
-            System.out.println("No reviews for this hotel.");
+            System.out.println(LanguageManager.getMessage("review.not_found"));
         }
     }
 }
