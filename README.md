@@ -84,7 +84,7 @@ O projeto está dividido em pacotes organizados da seguinte forma:
 
 ---
 
-## 🧪 Exemplo de Uso
+## Exemplo de Uso
 
 ```text
 Selecione o idioma:
